@@ -1,21 +1,49 @@
 [project]
 name = "decenfile"
-description = ""
+description = "A decentralized recruitment platform built on Stacks blockchain"
 authors = []
-telemetry = true
+telemetry = false
 cache_dir = "./.cache"
+requirements = []
 
-# [contracts.counter]
-# path = "contracts/counter.clar"
+[contracts.jobs]
+path = "contracts/jobs.clar"
+clarity_version = 1
+epoch = "2.05"
+
+[contracts.applicants]
+path = "contracts/applicants.clar"
+clarity_version = 1
+epoch = "2.05"
+
+[contracts.matching]
+path = "contracts/matching.clar"
+clarity_version = 1
+epoch = "2.05"
 
 [repl.analysis]
 passes = ["check_checker"]
-check_checker = { trusted_sender = false, trusted_caller = false, callee_filter = false }
 
-# Check-checker settings:
-# trusted_sender: if true, inputs are trusted after tx_sender has been checked.
-# trusted_caller: if true, inputs are trusted after contract-caller has been checked.
-# callee_filter: if true, untrusted data may be passed into a private function without a
-# warning, if it gets checked inside. This check will also propagate up to the
-# caller.
-# More informations: https://www.hiro.so/blog/new-safety-checks-in-clarinet
+[repl.analysis.check_checker]
+strict = false
+trusted_sender = false
+trusted_caller = false
+callee_filter = false
+
+# Simnet deployment configuration
+[repl.networks]
+testnet = { stacks-node = "https://stacks-node-api.testnet.stacks.co" }
+mainnet = { stacks-node = "https://stacks-node-api.mainnet.stacks.co" }
+
+# Development simnet configuration
+[[project.devnet.contracts]]
+id = "SP2PABAF9FTAJYNFZH93XENAJ8FVY99RRM50D2JG9.nft-trait"
+apply-transaction = false
+path = ".clarinet/contracts/SP2PABAF9FTAJYNFZH93XENAJ8FVY99RRM50D2JG9.nft-trait.clar"
+
+[[project.devnet.contracts]]
+id = "SP2PABAF9FTAJYNFZH93XENAJ8FVY99RRM50D2JG9.ft-trait"
+apply-transaction = false
+path = ".clarinet/contracts/SP2PABAF9FTAJYNFZH93XENAJ8FVY99RRM50D2JG9.ft-trait.clar"
+
+# Add additional contracts here
